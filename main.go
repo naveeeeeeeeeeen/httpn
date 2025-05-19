@@ -20,7 +20,23 @@ func healthCheck(req httpn.Request) httpn.Response {
 	return res
 }
 
+func createHandler(req httpn.Request) httpn.Response {
+	queryParams := req.ParseQuery()
+	fmt.Println(queryParams)
+	res := httpn.Response{
+		StatusCode: 200,
+		Data:       "{'message': 'success', 'status': 'ok'}",
+		Status:     "OK",
+		Headers: map[string]string{
+			"Content-Type": "application/json",
+		},
+	}
+
+	return res
+}
+
 func main() {
 	httpn.Get("/health-check", healthCheck)
+	httpn.Post("/create", createHandler)
 	httpn.Listen(8003)
 }

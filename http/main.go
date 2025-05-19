@@ -24,6 +24,16 @@ func Get(route string, handler func(Request) Response) *Route {
 	return &r
 }
 
+func Post(route string, handler func(Request) Response) *Route {
+	r := Route{
+		Method:  "POST",
+		Route:   route,
+		Handler: handler,
+	}
+	Routes = append(Routes, r)
+	return &r
+}
+
 func handleConnection(conn net.Conn) {
 	buffer := make([]byte, 1024)
 	status, err := conn.Read(buffer)
